@@ -4,7 +4,7 @@ using namespace std;
 class ostad {
 private:
     string user , pass;
-    string answer , question ;
+    string answer , ask , question ;
     string descriptiveQuestion[30] , testQuestion[30] , fouranswer[200];
     int n = 0;
     float totalPoint = 0;
@@ -35,6 +35,27 @@ public:
                     }
                     totalPoint += descriptivePoint[i];
                     i++;
+                } else if(answer == "test" || answer == "Test") {
+                    cin >> ws;
+                    getline(cin , ask);
+                    testQuestion[j] = ask;
+                    for(int j = 0 + n; j < 4 + n ; j++) {
+                        getline(cin , fouranswer[j + n]);
+                    }
+                    cout << "correct answer is : (please enter the number --> (1,2,,3,4))";
+                    cin >> correctAnswer[j];
+                    n += 4;
+                    cout << "score for this question " << j + 1 << " : " << endl;
+                    cin >> testPoint[j];
+                    while((testPoint[j] + totalPoint) > 20) {
+                        cout << "score for this Exam is more than 20!" << endl <<
+                        "your total score is " << totalPoint << " . " << endl <<
+                        "you can use up to " << 20 - totalPoint << " ,no more than this is allowed. "
+                        << endl;
+                        cin >> testPoint[j];
+                    }
+                    totalPoint += testPoint[j];
+                    j++;
                 }
             }
         }
