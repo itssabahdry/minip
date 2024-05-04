@@ -114,46 +114,55 @@ public:
 };
 int main() {
     string user, pass, person, nameList, sentence;
+    int flag = 0;
     int i = 0, num;
-    cout << "ostad or student ?";
-    cin >> person;
-    cout << "enter your ID : ";
-    cin >> user;
-    cout << "enter your pasword : ";
-    cin >> pass;
-    ostad ob[sizeOfExam];
-    student * ob1[sizeOfExam];
-    if(person == "ostad" && user == "Lotfi" && pass == "1234") {
-        while (i <= 9) {
-            cout << "which one ? ( 1 : create new list , 2 : display exam , 3 : add student , 4 : check the answer )" << endl;
-            cout << "the maximum of exam list is '" << sizeOfExam << "' " << "and your number of your exam list is '" << i << "' ." << endl;
-            cout << "if you type ( end ), the app will be close." << endl;
-            cin >> ws;
-            getline(cin, sentence);
-            if(sentence == "1" || sentence == "create new list") {
-                cout << "namelist: ";
-                getline(cin, namelist);
-                ob[i].newExam(namelist);
-                ob[i].Exam();
-                ob[i].addStudent();
-                i++;
+    while ( flag != 2 ) {
+        cout << "ostad or student ?";
+        cin >> person;
+        cout << "enter your ID : ";
+        cin >> user;
+        cout << "enter your pasword : ";
+        cin >> pass;
+        ostad ob[sizeOfExam];
+        student *ob1[sizeOfExam];
+        if (person == "ostad" && user == "Lotfi" && pass == "1234") {
+            while (i <= 9) {
+                cout
+                        << "which one ? ( 1 : create new list , 2 : display exam , 3 : add student , 4 : check the answer )"
+                        << endl;
+                cout << "the maximum of exam list is '" << sizeOfExam << "' "
+                     << "and your number of your exam list is '" << i << "' ." << endl;
+                cout << "if you type ( end ), the app will be close." << endl;
+                cin >> ws;
+                getline(cin, sentence);
+                if (sentence == "1" || sentence == "create new list") {
+                    cout << "namelist: ";
+                    getline(cin, nameList);
+                    ob[i].newExam(nameList);
+                    ob[i].Exam();
+                    ob[i].addStudent();
+                    i++;
                 }
                 if (sentence == "2" || sentence == "display exam") {
-                    cout << "Which exam list do you want?" << endl << "Sort that list by typing in the natural numbers. ";
+                    cout << "Which exam list do you want?" << endl
+                         << "Sort that list by typing in the natural numbers. ";
                     cin >> num;
                     ob[num - 1].displayExam(num - 1);
                 }
-            if(sentence == "3" || sentence == "add student") {
+                if (sentence == "3" || sentence == "add student") {
                     int numberList;
                     cout << "for which exam list ?";
                     cin >> numberList;
                     ob[numberList - 1].addStudent();
                 }
-                if(sentence == "end" || sentence == "End") {
+                if (sentence == "end" || sentence == "End") {
                     flag++;
                     break;
                 }
             }
-        } else if(person == "student" || person == "Student") {
+        } else if (person == "student" || person == "Student") {
+
+        }
+    }
     return 0;
 }
