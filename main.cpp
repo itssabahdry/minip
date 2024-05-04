@@ -61,6 +61,13 @@ public:
         }
 
     }
+
+    void newExam( string namelist){
+        examList [ nameNum ] = namelist ;
+        cout << "new exam list '" << namelist << "' created succesfuly :)." << endl;
+        nameNum ++;
+    }
+
     bool isTrueForOstad() {
         return (user == "LOTFI" && pass == "1234");
     }
