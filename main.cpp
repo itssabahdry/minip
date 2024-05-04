@@ -16,7 +16,6 @@ public:
         pass = s2;
     }
     void Exam() {
-        if(isTrueForOstad()) {
             while(totalPoint != 20) {
                 cout << "Test or Descriptive ?";
                 cin >> answer;
@@ -59,17 +58,30 @@ public:
                 }
             }
         }
-
-    }
-
     void newExam( string namelist){
         examList [ nameNum ] = namelist ;
         cout << "new exam list '" << namelist << "' created succesfuly :)." << endl;
         nameNum ++;
     }
+    void displayExam( int listNumber){
+        if ( listNumber >= 0 && listNumber < 10 ){
+            cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
+            for (int i = 0; questionTest [ i ] != "\0"; ++i) {
+                int p = 0;
+                cout << questionTest [ i ] << " ( " << pointTest [ i ] << " point )" << endl;
+                for (int k = four; k < four + 4 ; ++k) {
+                    cout << abcd [ p ] << " ) " << fourAwnser[ k ] << endl;
+                    p++;
+                }
+            four +=4;
+            }
+            for (int i = 0; questionDescriptive [ i ] != "\0" ; ++i) {
+                cout << questionDescriptive [ i ] << " ( " << pointDescriptive [ i ] << " point )" << endl;
+            }
 
-    bool isTrueForOstad() {
-        return (user == "LOTFI" && pass == "1234");
+        } else {
+            cout << "Invalid list number!" << endl;
+        }
     }
 };
 
