@@ -1,8 +1,11 @@
 #include<iostream>
 #include<string>
+#include<chrono>
+#include<thread>
 using namespace std;
+
 class ostad {
-private:
+protected:
     string user , pass , s1;
     string answer , ask , question ;
     string descriptiveQuestion[30] , testQuestion[30] , fouranswer[200];
@@ -83,24 +86,38 @@ public:
         }
     }
 };
+class ExamTime : public ostad {
+public:
+    bool isTime() {
+        auto start = chrono:: steady_clock ::now();
+        auto TimeLimit = chrono:: minutes(30);
+        this_thread::sleep_for(TimeLimit);
+        auto end = chrono:: steady_clock ::now();
+        return(end - start) >= TimeLimit;
+    }
+};
 class student {
 private: 
     int a;
 public:
 };
 int main() {
-    string user , pass , person , nameList , sentence;
-int i = 0 , num;
-cout << "ostad or student ?";
-cin >> person;
-cout << "enter your ID : ";
-cin >> user;
-cout << "enter your pasword : ";
-cin >> pass;
-ostad ob[10];
-if(person == "ostad" && user == "Lotfi" && pass == "1234") {
-while( i <= 9) {
-cout << "which one ?(1 : create new list , 2 : display exam)" << endl;
-cout << "if you type ( end ) the app will close." << endl;
-cin >> ws;
-getline(cin , sentence);
+    string user, pass, person, nameList, sentence;
+    int i = 0, num;
+    cout << "ostad or student ?";
+    cin >> person;
+    cout << "enter your ID : ";
+    cin >> user;
+    cout << "enter your pasword : ";
+    cin >> pass;
+    ostad ob[10];
+    if (person == "ostad" && user == "Lotfi" && pass == "1234") {
+        while (i <= 9) {
+            cout << "which one ?(1 : create new list , 2 : display exam)" << endl;
+            cout << "if you type ( end ) the app will close." << endl;
+            cin >> ws;
+            getline(cin, sentence);
+        }
+    }
+    return 0;
+}
