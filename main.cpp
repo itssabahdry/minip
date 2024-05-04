@@ -2,6 +2,7 @@
 #include<string>
 #include<chrono>
 #include<thread>
+#include<vector>
 using namespace std;
 
 class ostad {
@@ -16,6 +17,7 @@ protected:
     string examList[10];
     int nameNum = 0 , four = 0;
     char abcd[4] = { 'a' , 'b' , 'c' , 'd' };
+    vector <string> nameStudent;
 public:
     void Exam() {
             while(totalPoint != 20) {
@@ -85,8 +87,21 @@ public:
             cout << "Invalid list number!" << endl;
         }
     }
+    void addStudent(){
+        int numberOfStudent;
+        cout << "how many student do you want to add ?" << endl;
+        cin >> numberOfStudent;
+        cout << "the list of student who can take the exam: ";
+        for (int i = 0; i < numberOfStudent ; ++i) {
+            string name;
+            cin >> name;
+            nameStudent.push_back( name );
+        }
+    }
 };
-class ExamTime : public ostad {
+class student : public ostad {
+private: 
+    int a;
 public:
     bool isTime() {
         auto start = chrono:: steady_clock ::now();
@@ -95,11 +110,6 @@ public:
         auto end = chrono:: steady_clock ::now();
         return(end - start) >= TimeLimit;
     }
-};
-class student {
-private: 
-    int a;
-public:
 };
 int main() {
     string user, pass, person, nameList, sentence;
