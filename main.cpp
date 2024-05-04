@@ -83,4 +83,24 @@ public:
         }
     }
 };
-
+class student {
+private: 
+    int a;
+public:
+};
+int main() {
+    string user , pass , person , nameList , sentence;
+int i = 0 , num;
+cout << "ostad or student ?";
+cin >> person;
+cout << "enter your ID : ";
+cin >> user;
+cout << "enter your pasword : ";
+cin >> pass;
+ostad ob[10];
+if(person == "ostad" && user == "Lotfi" && pass == "1234") {
+while( i <= 9) {
+cout << "which one ?(1 : create new list , 2 : display exam)" << endl;
+cout << "if you type ( end ) the app will close." << endl;
+cin >> ws;
+getline(cin , sentence);
