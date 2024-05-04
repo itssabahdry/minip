@@ -5,6 +5,7 @@
 #include<vector>
 using namespace std;
 
+const int sizeOfExam = 10;
 class ostad {
 protected:
     string user , pass , s1;
@@ -120,14 +121,39 @@ int main() {
     cin >> user;
     cout << "enter your pasword : ";
     cin >> pass;
-    ostad ob[10];
-    if (person == "ostad" && user == "Lotfi" && pass == "1234") {
+    ostad ob[sizeOfExam];
+    student * ob1[sizeOfExam];
+    if(person == "ostad" && user == "Lotfi" && pass == "1234") {
         while (i <= 9) {
-            cout << "which one ?(1 : create new list , 2 : display exam)" << endl;
-            cout << "if you type ( end ) the app will close." << endl;
+            cout << "which one ? ( 1 : create new list , 2 : display exam , 3 : add student , 4 : check the answer )" << endl;
+            cout << "the maximum of exam list is '" << sizeOfExam << "' " << "and your number of your exam list is '" << i << "' ." << endl;
+            cout << "if you type ( end ), the app will be close." << endl;
             cin >> ws;
             getline(cin, sentence);
-        }
-    }
+            if(sentence == "1" || sentence == "create new list") {
+                cout << "namelist: ";
+                getline(cin, namelist);
+                ob[i].newExam(namelist);
+                ob[i].Exam();
+                ob[i].addStudent();
+                i++;
+                }
+                if (sentence == "2" || sentence == "display exam") {
+                    cout << "Which exam list do you want?" << endl << "Sort that list by typing in the natural numbers. ";
+                    cin >> num;
+                    ob[num - 1].displayExam(num - 1);
+                }
+            if(sentence == "3" || sentence == "add student") {
+                    int numberList;
+                    cout << "for which exam list ?";
+                    cin >> numberList;
+                    ob[numberList - 1].addStudent();
+                }
+                if(sentence == "end" || sentence == "End") {
+                    flag++;
+                    break;
+                }
+            }
+        } else if(person == "student" || person == "Student") {
     return 0;
 }
