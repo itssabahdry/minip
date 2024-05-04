@@ -3,18 +3,17 @@
 using namespace std;
 class ostad {
 private:
-    string user , pass;
+    string user , pass , s1;
     string answer , ask , question ;
     string descriptiveQuestion[30] , testQuestion[30] , fouranswer[200];
     int n = 0;
     float totalPoint = 0;
     float descriptivePoint[30], testPoint[30];
     int i = 0 , j = 0 , correctAnswer[30];
+    string examList[10];
+    int nameNum = 0 , four = 0;
+    char abcd[4] = { 'a' , 'b' , 'c' , 'd' };
 public:
-    ostad(string s1 , string s2) {
-        user = s1;
-        pass = s2;
-    }
     void Exam() {
             while(totalPoint != 20) {
                 cout << "Test or Descriptive ?";
@@ -65,18 +64,18 @@ public:
     }
     void displayExam( int listNumber){
         if ( listNumber >= 0 && listNumber < 10 ){
-            cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
-            for (int i = 0; questionTest [ i ] != "\0"; ++i) {
+            cout << "Exam list " << listNumber + 1 << " : " << examList [listNumber] << endl;
+            for (int i = 0; testQuestion[i] != "\0"; ++i) {
                 int p = 0;
-                cout << questionTest [ i ] << " ( " << pointTest [ i ] << " point )" << endl;
+                cout << testQuestion[i] << " ( " << testPoint[i] << " point )" << endl;
                 for (int k = four; k < four + 4 ; ++k) {
-                    cout << abcd [ p ] << " ) " << fourAwnser[ k ] << endl;
+                    cout << abcd[p] << " ) " << fouranswer[k] << endl;
                     p++;
                 }
             four +=4;
             }
-            for (int i = 0; questionDescriptive [ i ] != "\0" ; ++i) {
-                cout << questionDescriptive [ i ] << " ( " << pointDescriptive [ i ] << " point )" << endl;
+            for (int i = 0; descriptiveQuestion[i] != "\0" ; ++i) {
+                cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
             }
 
         } else {
