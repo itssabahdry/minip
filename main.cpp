@@ -4,7 +4,6 @@
 using namespace std;
 class ostad {
 private:
-    string user , pass;
     string answer , ask , question ;
     string descriptiveQuestion[30] , testQuestion[30] , fouranswer[200];
     int n = 0;
