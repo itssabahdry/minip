@@ -112,27 +112,27 @@ private:
     int num  , count , numberOfTestQuestion  ;
     int unansweredQuestions[ 30 ];
 public:
-    void displayExamForStudent(int listNumber){
-        if ( listNumber >= 0 && listNumber < sizeOfExam ){
+    void displayExamForStudent(int listNumber) {
+        if ( listNumber >= 0 && listNumber < sizeOfExam ) {
             cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
             count = 0;
             num = 1;
-            for (int i = 0; questionTest [ i ] != "\0"; ++i) {
+            for (int i = 0; testQuestion[i] != "\0"; ++i) {
                 cout << "Question " << num  << " : " << endl;
                 int p = 0;
 
-                cout << questionTest [ i ] << " ( " << pointTest [ i ] << " point )" << endl;
+                cout << testQuestion[i] << " ( " << testPoint[i] << " point )" << endl;
                 for (int k = four; k < four + 4 ; ++k) {
-                    cout << abcd [ p ] << " ) " << fourAnswer[ k ] << endl;
+                    cout << abcd[p] << " ) " << fouranswer[k] << endl;
                     p++;
                 }
                 four +=4;
                 num++;
             }
             numberOfTestQuestion = num - 1;
-            for (int i = 0; questionDescriptive [ i ] != "\0" ; ++i) {
+            for (int i = 0; descriptiveQuestion[i] != "\0" ; ++i) {
                 cout << "Question " << num << " : " << endl;
-                cout << questionDescriptive [ i ] << " ( " << pointDescriptive [ i ] << " point )" << endl;
+                cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
                 num++;
             }
 
@@ -146,6 +146,7 @@ public:
         return(end - start) >= TimeLimit;
     }
 };
+
 int main() {
     string user, pass, person, nameList, sentence;
     int flag = 0;
