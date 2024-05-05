@@ -108,8 +108,36 @@ public:
 };
 class student : public ostad {
 private: 
-    int a;
+    string testAnswer [ 30 ] , descriptiveAnswer [ 30 ] ;
+    int num  , count , numberOfTestQuestion  ;
+    int unansweredQuestions[ 30 ];
 public:
+    void displayExamForStudent(int listNumber){
+        if ( listNumber >= 0 && listNumber < sizeOfExam ){
+            cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
+            count = 0;
+            num = 1;
+            for (int i = 0; questionTest [ i ] != "\0"; ++i) {
+                cout << "Question " << num  << " : " << endl;
+                int p = 0;
+
+                cout << questionTest [ i ] << " ( " << pointTest [ i ] << " point )" << endl;
+                for (int k = four; k < four + 4 ; ++k) {
+                    cout << abcd [ p ] << " ) " << fourAnswer[ k ] << endl;
+                    p++;
+                }
+                four +=4;
+                num++;
+            }
+            numberOfTestQuestion = num - 1;
+            for (int i = 0; questionDescriptive [ i ] != "\0" ; ++i) {
+                cout << "Question " << num << " : " << endl;
+                cout << questionDescriptive [ i ] << " ( " << pointDescriptive [ i ] << " point )" << endl;
+                num++;
+            }
+
+        } else {
+    }
     bool isTime() {
         auto start = chrono:: steady_clock ::now();
         auto TimeLimit = chrono:: minutes(30);
