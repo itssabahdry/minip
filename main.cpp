@@ -99,6 +99,12 @@ public:
             nameStudent.push_back( name );
         }
     }
+   bool searchName( string name ){
+        for (int k = 0; k < nameStudent.size() ; ++k) {
+            if ( nameStudent.at( k ) == name )
+                return true;
+        }
+    }
 };
 class student : public ostad {
 private: 
