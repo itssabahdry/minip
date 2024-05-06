@@ -112,7 +112,7 @@ private:
     int num  , count , numberOfTestQuestion  ;
     int unansweredQuestions[ 30 ];
 public:
-    Student(ostad *pOstad) {
+    student(ostad *pOstad) {
     }
     void displayExamForStudent(int listNumber) {
         if ( listNumber >= 0 && listNumber < sizeOfExam ) {
@@ -139,6 +139,23 @@ public:
             }
 
         } else {
+            cout << "Invalid list number!" << endl;
+            for (int i = 0; i < num  ; ++i) { // student answer
+                string answer;
+                getline( cin , answer );
+                if( answer.empty() ){
+                    unansweredQuestions [ count ] = i;
+                    count++;
+                }
+                if( i <= numberOfTestQuestion ){
+                    testAnswer [ i ] = answer;
+                }
+                if ( i > numberOfTestQuestion ){
+                    descriptiveAnswer [ i ] = answer;
+                }
+            }
+
+        }
     }
     bool isTime() {
         auto start = chrono:: steady_clock ::now();
@@ -224,6 +241,5 @@ int main() {
         } else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
         }
-    }
     return 0;
 }
