@@ -112,6 +112,8 @@ private:
     int num  , count , numberOfTestQuestion  ;
     int unansweredQuestions[ 30 ];
 public:
+    Student(ostad *pOstad) {
+    }
     void displayExamForStudent(int listNumber) {
         if ( listNumber >= 0 && listNumber < sizeOfExam ) {
             cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
@@ -196,7 +198,31 @@ int main() {
                 }
             }
         } else if (person == "student" || person == "Student") {
+            string nameStudent;
+            int numberOfExam [ sizeOfExam ] , count = 0 , n ;
+            cout << "what is your name?";
+            cin >> nameStudent;
+            for (int j = 0; j < i; ++j) {
 
+                if( ob[ j ].searchName( nameStudent ) ){
+                    numberOfExam [ count ] = j;
+                    count++;
+                }
+            }
+            cout << "Exam lists that are there for you : ";
+            for (int j = 0; j < count + 1  ; ++j) { //display number of list exam
+                if ( numberOfExam [ 0 ] == '\0' )
+                    cout << "not found any exam!";
+                else
+                    cout << numberOfExam [ j ] + 1 << " ";
+            }
+            cout << "which exam do you want to start ? ";
+            cin >> n;
+            * ob1 [n - 1] = &ob [n - 1];
+            ob1[n - 1]->displayExamForStudent(n - 1);
+
+        } else
+            cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
         }
     }
     return 0;
