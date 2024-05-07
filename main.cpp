@@ -24,11 +24,10 @@ public:
             while(totalPoint != 20) {
                 cout << "Test or Descriptive ?";
                 cin >> answer;
+                cin.ignore();
                 if(answer == "Descriptive" || answer == "descriptive") {
-                    cin >> ws;
-                    getline(cin , question);
-                    descriptiveQuestion[i] = question;
-                    cin >> ws;
+                    cout << "Descriptive question " << i + 1 << " : ";
+                    getline(cin , descriptiveQuestion[i]);
                     cout << "Score for this question" << i + 1 << " : ";
                     cin >> descriptivePoint[i];
                     while((descriptivePoint[i] + totalPoint) > 20) {
@@ -40,11 +39,13 @@ public:
                     totalPoint += descriptivePoint[i];
                     i++;
                 } else if(answer == "test" || answer == "Test") {
-                    cin >> ws;
-                    getline(cin , ask);
-                    testQuestion[j] = ask;
+                    cout << "Test question " << j + 1 << " : ";
+                    getline(cin , testQuestion[i]);
+                    int p = 0;
                     for(int j = 0 + n; j < 4 + n ; j++) {
+                        cout << abcd[p] << " ) ";
                         getline(cin , fouranswer[j + n]);
+                        p++;
                     }
                     cout << "correct answer is : (please enter the number --> (1,2,,3,4))";
                     cin >> correctAnswer[j];
@@ -64,13 +65,20 @@ public:
             }
         }
     void newExam( string namelist){
-        examList [ nameNum ] = namelist ;
+        examList.push_back( namelist );
         cout << "new exam list '" << namelist << "' created succesfuly :)." << endl;
-        nameNum ++;
     }
     void displayExam( int listNumber){
         if ( listNumber >= 0 && listNumber < 10 ){
-            cout << "Exam list " << listNumber + 1 << " : " << examList [listNumber] << endl;
+            cout << "Exam list " << listNumber + 1 << " : " << examList [listNumber] << endl
+                 << "list of student who can take the exam : ";
+            for (size_t k = 0; k < nameStudent.size() ; ++k) {
+                if ( k == 0 )
+                    cout << nameStudent[k] ;
+                else
+                    cout << " , " <<  nameStudent[k] ;
+            }
+            cout << " ." << endl;
             for (int i = 0; testQuestion[i] != "\0"; ++i) {
                 int p = 0;
                 cout << testQuestion[i] << " ( " << testPoint[i] << " point )" << endl;
@@ -99,10 +107,10 @@ public:
             nameStudent.push_back( name );
         }
     }
-   bool searchName( string name ){
+   string searchName( string name ){
         for (int k = 0; k < nameStudent.size() ; ++k) {
             if ( nameStudent.at( k ) == name )
-                return true;
+                return name;
         }
     }
 };
@@ -192,7 +200,7 @@ int main() {
                 if (sentence == "1" || sentence == "create new list") {
                     cout << "namelist: ";
                     getline(cin, nameList);
-                    ob[i].newExam(nameList);
+                    ob[i].newExam( nameList );
                     ob[i].Exam();
                     ob[i].addStudent();
                     i++;
@@ -220,24 +228,18 @@ int main() {
             cout << "what is your name?";
             cin >> nameStudent;
             for (int j = 0; j < i; ++j) {
-
-                if( ob[ j ].searchName( nameStudent ) ){
+                if( ob[ j ].searchName( nameStudent ) == nameStudent ){
                     numberOfExam [ count ] = j;
                     count++;
                 }
             }
             cout << "Exam lists that are there for you : ";
-            for (int j = 0; j < count + 1  ; ++j) { //display number of list exam
-                if ( numberOfExam [ 0 ] == '\0' )
-                    cout << "not found any exam!";
-                else
-                    cout << numberOfExam [ j ] + 1 << " ";
-            }
+
             cout << "which exam do you want to start ? ";
             cin >> n;
-            * ob1 [n - 1] = &ob [n - 1];
-            ob1[n - 1]->displayExamForStudent(n - 1);
 
+            ob1[n - 1]->displayExamForStudent(n - 1);
+            * ob1 [n - 1] = &ob [n - 1];
         } else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
         }
