@@ -9,16 +9,18 @@ const int sizeOfExam = 10;
 class ostad {
 protected:
     string user , pass , s1;
-    string answer , ask , question ;
+    string answer , ask;
     string descriptiveQuestion[30] , testQuestion[30] , fouranswer[200];
     int n = 0;
     float totalPoint = 0;
     float descriptivePoint[30], testPoint[30];
-    int i = 0 , j = 0 , correctAnswer[30];
-    string examList[10];
+    int i = 0 , j = 0;
     int nameNum = 0 , four = 0;
-    char abcd[4] = { 'a' , 'b' , 'c' , 'd' };
-    vector <string> nameStudent;
+    char abcd[4] = { 'a' , 'b' , 'c' , 'd' } , correctAnswer[30];
+    vector <string> nameStudent , examList;
+    string testAnswer [30] , descriptiveAnswer [30] ;
+    int num  , count , numberOfTestQuestion  ;
+    int unansweredQuestions[30];
 public:
     void Exam() {
             while(totalPoint != 20) {
@@ -91,7 +93,6 @@ public:
             for (int i = 0; descriptiveQuestion[i] != "\0" ; ++i) {
                 cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
             }
-
         } else {
             cout << "Invalid list number!" << endl;
         }
@@ -108,19 +109,10 @@ public:
         }
     }
    string searchName( string name ){
-        for (int k = 0; k < nameStudent.size() ; ++k) {
+        for (size_t k = 0; k < nameStudent.size() ; ++k) {
             if ( nameStudent.at( k ) == name )
                 return name;
         }
-    }
-};
-class student : public ostad {
-private: 
-    string testAnswer [ 30 ] , descriptiveAnswer [ 30 ] ;
-    int num  , count , numberOfTestQuestion  ;
-    int unansweredQuestions[ 30 ];
-public:
-    student(ostad *pOstad) {
     }
     void displayExamForStudent(int listNumber) {
         if ( listNumber >= 0 && listNumber < sizeOfExam ) {
@@ -130,7 +122,6 @@ public:
             for (int i = 0; testQuestion[i] != "\0"; ++i) {
                 cout << "Question " << num  << " : " << endl;
                 int p = 0;
-
                 cout << testQuestion[i] << " ( " << testPoint[i] << " point )" << endl;
                 for (int k = four; k < four + 4 ; ++k) {
                     cout << abcd[p] << " ) " << fouranswer[k] << endl;
@@ -145,11 +136,8 @@ public:
                 cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
                 num++;
             }
-
-        } else {
-            cout << "Invalid list number!" << endl;
             for (int i = 0; i < num  ; ++i) { // student answer
-                string answer;
+                cin >> ws;
                 getline( cin , answer );
                 if( answer.empty() ){
                     unansweredQuestions [ count ] = i;
@@ -162,9 +150,32 @@ public:
                     descriptiveAnswer [ i ] = answer;
                 }
             }
-
+            while ( count != 0 ) {
+                cout << "you did not answer questions ";
+                for (int i = 0; i < count ; ++i) {
+                    if ( i = 0 )
+                        cout << unansweredQuestions [i] + 1;
+                    else
+                        cout << " and " << unansweredQuestions [i] + 1;
+                }
+                cout << "Do you want to answer them ? ( please type yes or no )";
+                cin >> answer;
+                if ( answer == "yes" || answer == "Yes" ) {
+                }
+                else if ( answer == "no" || answer == "No"){
+                    break;
+                }
+            }
+        } else {
+            cout << "Invalid list number!" << endl;
         }
     }
+};
+class student : public ostad {
+private:
+    ostad ob [sizeOfExam];
+public:
+
     bool isTime() {
         auto start = chrono:: steady_clock ::now();
         auto TimeLimit = chrono:: minutes(30);
@@ -176,8 +187,9 @@ public:
 
 int main() {
     string user, pass, person, nameList, sentence;
-    int flag = 0;
-    int i = 0, num;
+    int flag = 0 , i = 0, num;
+    ostad ob[sizeOfExam];
+    student ob1[sizeOfExam];
     while ( flag != 2 ) {
         cout << "ostad or student ?";
         cin >> person;
@@ -185,16 +197,12 @@ int main() {
         cin >> user;
         cout << "enter your pasword : ";
         cin >> pass;
-        ostad ob[sizeOfExam];
-        student *ob1[sizeOfExam];
         if (person == "ostad" && user == "Lotfi" && pass == "1234") {
-            while (i <= 9) {
-                cout
-                        << "which one ? ( 1 : create new list , 2 : display exam , 3 : add student , 4 : check the answer )"
-                        << endl;
-                cout << "the maximum of exam list is '" << sizeOfExam << "' "
-                     << "and your number of your exam list is '" << i << "' ." << endl;
-                cout << "if you type ( end ), the app will be close." << endl;
+            while (i <= sizeOfExam) {
+                cout<< "which one ? ( 1 : create new list , 2 : display exam , 3 : add student , 4 : check the answer )"
+                << endl << "the maximum of exam list is '" << sizeOfExam << "' "
+                << "and your number of your exam list is '" << i << "' ." << endl
+                << "if you type ( end ), the app will be close." << endl;
                 cin >> ws;
                 getline(cin, sentence);
                 if (sentence == "1" || sentence == "create new list") {
@@ -224,23 +232,27 @@ int main() {
             }
         } else if (person == "student" || person == "Student") {
             string nameStudent;
-            int numberOfExam [ sizeOfExam ] , count = 0 , n ;
+            int numberOfExam[sizeOfExam], count = 0, n;
             cout << "what is your name?";
             cin >> nameStudent;
             for (int j = 0; j < i; ++j) {
-                if( ob[ j ].searchName( nameStudent ) == nameStudent ){
-                    numberOfExam [ count ] = j;
+                if (ob[j].searchName(nameStudent) == nameStudent) {
+                    numberOfExam[count] = j;
                     count++;
                 }
             }
             cout << "Exam lists that are there for you : ";
-
-            cout << "which exam do you want to start ? ";
-            cin >> n;
-
-            ob1[n - 1]->displayExamForStudent(n - 1);
-            * ob1 [n - 1] = &ob [n - 1];
-        } else
+            if (count == 0)
+                cout << "not found any exam!" << endl;
+            else {
+                for (int j = 0; j < count; ++j) {
+                    cout << numberOfExam[j] + 1 << " ";
+                }
+                cout << "which exam do you want to start ? ";
+                cin >> n;
+                ob[n - 1].displayExamForStudent(n - 1);
+            }
+        }else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
         }
     return 0;
