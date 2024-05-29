@@ -1,7 +1,5 @@
 #include<iostream>
 #include<string>
-#include<chrono>
-#include<thread>
 #include<vector>
 using namespace std;
 
@@ -176,13 +174,6 @@ private:
     ostad ob [sizeOfExam];
 public:
 
-    bool isTime() {
-        auto start = chrono:: steady_clock ::now();
-        auto TimeLimit = chrono:: minutes(30);
-        this_thread::sleep_for(TimeLimit);
-        auto end = chrono:: steady_clock ::now();
-        return(end - start) >= TimeLimit;
-    }
 };
 
 int main() {
