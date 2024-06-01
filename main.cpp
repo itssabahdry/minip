@@ -4,6 +4,44 @@
 using namespace std;
 
 const int sizeOfExam = 10;
+const int maximumExamForStudent = 400;
+const int maximumtestQuestion = 30 , maximumDescriptiveQuestion = 30;
+class saveNameAndExam{
+private:
+    vector<pair< string , int >> forCheckAnswer;
+    vector <int> numExam;
+public:
+    void setNameAndExam( string name , int listnumber , int num){
+        forCheckAnswer.push_back(make_pair(name , listnumber));
+        numExam.push_back(num);
+    }
+    void search(int numlist){
+        for (int i = 0 ; i < forCheckAnswer.size() ; ++i) {
+            if ( forCheckAnswer[i].second == numlist ){
+                cout << forCheckAnswer[i].first << "\t";
+            }
+        }
+    }
+ void search2(string name){
+        for (int i = 0; i < forCheckAnswer.size(); ++i) {
+            if (forCheckAnswer[i].first == name)
+                cout << forCheckAnswer[i].second << "\t";
+        }
+    }
+    int search3( string name , int numlist ){
+        for (int i = 0; i < forCheckAnswer.size(); ++i) {
+            if ( forCheckAnswer[i].first == name && forCheckAnswer[i].second == numlist )
+                return numExam[i];
+        }
+    }
+    int selectAnswerExam( string name){
+        for (int i = 0; i < forCheckAnswer.size() ; ++i) {
+            if ( forCheckAnswer[i].first == name ){
+                return numExam[i];
+            }
+        }
+    }
+};
 class ostad {
 protected:
     string user , pass , s1;
