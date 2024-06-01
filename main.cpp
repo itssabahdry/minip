@@ -2,6 +2,7 @@
 #include<string>
 #include<vector>
 #include<utility>
+#include<ctime>
 using namespace std;
 
 const int sizeOfExam = 10;
