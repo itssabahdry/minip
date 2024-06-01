@@ -58,7 +58,12 @@ protected:
     string testAnswer [30] , descriptiveAnswer [30] ;
     int num  , count , numberOfTestQuestion  ;
     int unansweredQuestions[30];
+    int ExamTime = 0;
 public:
+ void examTime() {
+        cout << "Enter the desired test time in seconds : " << endl;
+        cin >> ExamTime;
+    }
     void Exam() {
             while(totalPoint != 20) {
                 cout << "Test or Descriptive ?";
@@ -160,7 +165,10 @@ public:
             cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
             count = 0;
             num = 1;
-            four = 0
+            four = 0;
+            ExamTime *= CLOCKS_PER_SEC;
+            clock_t now = clock();
+         while (clock() - now < ExamTime) {
             for (int i = 0; testQuestion[i] != "\0"; ++i) {
                 cout << "Question " << num  << " : " << endl;
                 int p = 0;
@@ -192,6 +200,8 @@ public:
                     } else
                         descriptiveAnswer[k] = answer;
                 }
+             }
+            cout << "your time to respond has expired ." << endl;
         } else {
             cout << "Invalid list number!" << endl;
         }
@@ -277,6 +287,7 @@ int main() {
                     getline(cin, nameList);
                     ob[i].newExam( nameList );
                     ob[i].Exam();
+                    ob[i].examTime();
                     ob[i].addStudent();
                     i++;
                 }
