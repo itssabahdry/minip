@@ -240,6 +240,22 @@ int main() {
                     cin >> numberList;
                     ob[numberList - 1].addStudent();
                 }
+                if (sentence == "4" || sentence == "check the answer") {
+                        int numberList;
+                        cout << "for which exam list ?";
+                        cin >> numberList;
+                        ob3.search( numberList );
+                        cout << endl << "which one ?";
+                        string nameStudent;
+                        cin.ignore();
+                        getline(cin , nameStudent );
+                        ob1[ ob3.selectAnswerExam( nameStudent ) ] = static_cast<student *>(&ob[ numberList - 1]);
+                        ob1[ ob3.selectAnswerExam( nameStudent ) ] -> displayAnswer( numberList - 1 , nameStudent );
+
+                    }
+                    if (sentence == "5" || sentence == "see the max avarge point of studets") {
+
+                    }
                 if (sentence == "end" || sentence == "End") {
                     flag++;
                     break;
