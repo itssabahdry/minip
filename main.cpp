@@ -92,7 +92,7 @@ public:
                         getline(cin , fouranswer[j + n]);
                         p++;
                     }
-                    cout << "correct answer is : (please enter the number --> (1,2,,3,4))";
+                    cout << "correct answer is : (please enter the number --> (a,b,c,d))";
                     cin >> correctAnswer[j];
                     n += 4;
                     cout << "score for this question " << j + 1 << " : " << endl;
@@ -328,8 +328,11 @@ int main() {
         } else if (person == "student" || person == "Student") {
             string sentence;
             string nameStudent;
+            string studentPassword;
             cout << "what is your name?";
             cin >> nameStudent;
+            cout << "enter your password : ";
+            cin >> studentPassword;
             cout<< "which one ? ( 1 : check your exam , 2 : show exam to answer it , 3 : examination protest , 4 : history of exams , 5 : see your score )" << endl
                 << "if you type ( end ), the app will be close." << endl;
             cin.ignore();
