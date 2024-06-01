@@ -277,7 +277,30 @@ int main() {
                         }
                     }
                 }
-        
+        if (sentence == "2" || sentence == "show exam to answer it") {
+                    int numberOfExam[sizeOfExam], count = 0;
+                    for (int j = 0; j < i; ++j) {
+                        if (ob[j].searchName(nameStudent) == nameStudent) {
+                            numberOfExam[count] = j;
+                            count++;
+                        }
+                    }
+                    cout << "Exam lists that are there for you : ";
+                    if (count == 0)
+                        cout << "not found any exam!" << endl;
+                    else {
+                        for (int j = 0; j < count; ++j) {
+                            cout << numberOfExam[j] + 1 << " ";
+                        }
+                        int n;
+                        cout << endl <<  "which exam do you want to start ? ";
+                        cin >> n;
+                        ob1[countForStudent] = static_cast<student *>(&ob[n - 1]);
+                        ob1[ countForStudent ]->displayExamForStudent(n - 1);
+                        ob3.setNameAndExam(nameStudent, n, countForStudent);
+                        countForStudent++;
+                    }
+                }
         }else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
         }
