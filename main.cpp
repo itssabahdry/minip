@@ -244,6 +244,12 @@ public:
             cout << "Invalid list number!" << endl;
           }
     }
+ void searchNumlistForScore(int numlist){
+        for (int k = 0; k < numlistforAwnser.size() ; ++k) {
+            if ( numlistforAwnser[k] == numlist )
+                cout << pointForStudent[k].second << endl;
+        }
+}
 };
 
 int main() {
