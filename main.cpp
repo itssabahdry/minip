@@ -160,7 +160,51 @@ public:
                 return name;
         }
     }
-   
+    void calculateAverageScores(const vector<int>& selectedExamLists) {
+        vector<pair<string, float>> studentAverages;
+        vector<pair<string, vector<float>>> studentScores;
+
+        for (const int& listNumber : selectedExamLists) {
+            if (listNumber >= 0 && listNumber < examList.size()) {
+                for (const auto& student : pointForStudent) {
+                    for (size_t k = 0; k < numlistforAwnser.size(); ++k) {
+                        if (numlistforAwnser[k] == listNumber) {
+                            bool found = false;
+                            for (auto& entry : studentScores) {
+                                if (entry.first == student.first) {
+                                    entry.second.push_back(student.second);
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                studentScores.push_back(make_pair(student.first, vector<float>{student.second}));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (const auto& entry : studentScores) {
+            float sum = 0;
+            for (const auto& score : entry.second) {
+                sum += score;
+            }
+            float average = sum / entry.second.size();
+            studentAverages.push_back(make_pair(entry.first, average));
+        }
+        for (size_t i = 0; i < studentAverages.size(); ++i) {
+            for (size_t j = 0; j < studentAverages.size() - i - 1; ++j) {
+                if (studentAverages[j].second > studentAverages[j + 1].second) {
+                    swap(studentAverages[j], studentAverages[j + 1]);
+                }
+            }
+        }
+        cout << "Student averages in ascending order:" << endl;
+        for (const auto& entry : studentAverages) {
+            cout << entry.first << ": " << entry.second << endl;
+        }
+    }
 };
 class student : public ostad {
 public:
@@ -328,9 +372,18 @@ int main() {
                         ob1[ ob3.selectAnswerExam( nameStudent ) ] -> displayAnswer( numberList - 1 , nameStudent );
 
                     }
-                    if (sentence == "5" || sentence == "see the max avarge point of studets") {
-
+                if (sentence == "5" || sentence == "see the max avarge point of studets") {
+                    int numLists;
+                    cout << "Enter the number of exam lists to calculate average scores for: ";
+                    cin >> numLists;
+                    vector<int> selectedExamLists(numLists);
+                    cout << "Enter the exam list numbers: ";
+                    for (int i = 0; i < numLists; ++i) {
+                        cin >> selectedExamLists[i];
                     }
+                    ostad teacher;
+                    teacher.calculateAverageScores(selectedExamLists);
+                }
                 if (sentence == "end" || sentence == "End") {
                     flag++;
                     break;
