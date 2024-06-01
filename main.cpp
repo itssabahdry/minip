@@ -154,8 +154,6 @@ public:
    
 };
 class student : public ostad {
-private:
-    ostad ob [sizeOfExam];
 public:
  void displayExamForStudent(int listNumber) {
         if ( listNumber >= 0 && listNumber < sizeOfExam ) {
@@ -197,6 +195,54 @@ public:
         } else {
             cout << "Invalid list number!" << endl;
         }
+    }
+ void displayAnswer( int listNumber , string nameStudent){
+        if ( listNumber >= 0 && listNumber < sizeOfExam ) {
+            cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
+            count = 0;
+            num = 1;
+            four = 0;
+            float point = 0;
+            for (int i = 0; i < j  ; ++i) {
+                cout << "Question " << i + 1 << " :  "
+                     << testQuestion[i] <<  " ( " << testPoint[i] << " point )" << endl
+                     << "student awnser:  " << testAnswer[i] << endl
+                     << "correct awnser:  " << correctAnswer[i] << endl;
+                if ( testAnswer[i] == correctAnswer[i] )
+                    point +=testPoint[i];
+                num++;
+            }
+            if( num > 0 )
+              cout << "total test score:" << "  " << point << endl;
+            for (int i = 0; i < this-> i ; ++i) {
+                cout << "Question " << i + 1 << " :  "
+                     << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl
+                     << "student answer:  " << descriptiveAnswer[i] << endl
+                     << "Enter score for this answer: ";
+                int score;
+                cin >> score;
+                while ( score > descriptivePoint[i]){
+                    cout << "The entered score exceeds the maximum score for this question. please enter a valid score: ";
+                    cin >> score;
+                }
+                point += score;
+                cin.ignore();
+                num++;
+                cout << "Do you have an explanation for this question?" << endl ;
+                string s;
+                getline(cin , s);
+                if ( s == "yes" || s == "Yes" ){
+                    cin >> s;
+                    explanation.push_back(s);
+                }
+                else
+                    continue;
+            }
+            pointForStudent.push_back( make_pair( nameStudent , point ) );
+            numlistforAwnser.push_back( listNumber );
+        } else {
+            cout << "Invalid list number!" << endl;
+          }
     }
 };
 
