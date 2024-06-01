@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<utility>
 using namespace std;
 
 const int sizeOfExam = 10;
@@ -150,11 +151,18 @@ public:
                 return name;
         }
     }
-    void displayExamForStudent(int listNumber) {
+   
+};
+class student : public ostad {
+private:
+    ostad ob [sizeOfExam];
+public:
+ void displayExamForStudent(int listNumber) {
         if ( listNumber >= 0 && listNumber < sizeOfExam ) {
             cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
             count = 0;
             num = 1;
+            four = 0
             for (int i = 0; testQuestion[i] != "\0"; ++i) {
                 cout << "Question " << num  << " : " << endl;
                 int p = 0;
@@ -166,52 +174,11 @@ public:
                 four +=4;
                 num++;
             }
-            numberOfTestQuestion = num - 1;
-            for (int i = 0; descriptiveQuestion[i] != "\0" ; ++i) {
-                cout << "Question " << num << " : " << endl;
-                cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
-                num++;
-            }
-            for (int i = 0; i < num  ; ++i) { // student answer
-                cin >> ws;
-                getline( cin , answer );
-                if( answer.empty() ){
-                    unansweredQuestions [ count ] = i;
-                    count++;
-                }
-                if( i <= numberOfTestQuestion ){
-                    testAnswer [ i ] = answer;
-                }
-                if ( i > numberOfTestQuestion ){
-                    descriptiveAnswer [ i ] = answer;
-                }
-            }
-            while ( count != 0 ) {
-                cout << "you did not answer questions ";
-                for (int i = 0; i < count ; ++i) {
-                    if ( i = 0 )
-                        cout << unansweredQuestions [i] + 1;
-                    else
-                        cout << " and " << unansweredQuestions [i] + 1;
-                }
-                cout << "Do you want to answer them ? ( please type yes or no )";
-                cin >> answer;
-                if ( answer == "yes" || answer == "Yes" ) {
-                }
-                else if ( answer == "no" || answer == "No"){
-                    break;
-                }
-            }
+        
         } else {
             cout << "Invalid list number!" << endl;
         }
     }
-};
-class student : public ostad {
-private:
-    ostad ob [sizeOfExam];
-public:
-
 };
 
 int main() {
