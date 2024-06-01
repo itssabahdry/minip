@@ -48,17 +48,20 @@ class ostad {
 protected:
     string user , pass , s1;
     string answer , ask;
-    string descriptiveQuestion[30] , testQuestion[30] , fouranswer[200];
+    string descriptiveQuestion[maximumDescriptiveQuestion] , testQuestion[maximumtestQuestion] , fouranswer[maximumtestQuestion * 4];
     int n = 0;
     float totalPoint = 0;
-    float descriptivePoint[30], testPoint[30];
+    vector <string> explanation;
+    float descriptivePoint[maximumDescriptiveQuestion], testPoint[maximumtestQuestion];
     int i = 0 , j = 0;
     int nameNum = 0 , four = 0;
-    char abcd[4] = { 'a' , 'b' , 'c' , 'd' } , correctAnswer[30];
+    char abcd[4] = { 'a' , 'b' , 'c' , 'd' } , correctAnswer[maximumtestQuestion];
     vector <string> nameStudent , examList;
-    string testAnswer [30] , descriptiveAnswer [30] ;
+    char testAnswer [maximumtestQuestion];
+    string   descriptiveAnswer [30] ;
     int num  , count , numberOfTestQuestion  ;
-    int unansweredQuestions[30];
+    vector <pair< string , float >> pointForStudent;
+    vector <int> numlistforAwnser;
     int ExamTime = 0;
 public:
  void examTime() {
@@ -186,6 +189,14 @@ public:
                     cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
                     num++;
                 }
+             if(clock() - now >= ExamTime) {
+                 cout << "time is up!" << endl;
+                 for(int i = 0 ; i < j ; i++) {
+                     if(testAnswer[i] == '\0') {
+                         testAnswer[i] = 'f';
+                     }
+                 }
+             }
                 for (int i = 0; i < j; ++i) {
                     cin >> answer;
                     if (answer.empty()) {
@@ -202,7 +213,6 @@ public:
                         descriptiveAnswer[k] = answer;
                 }
              }
-            cout << "your time to respond has expired ." << endl;
         } else {
             cout << "Invalid list number!" << endl;
         }
@@ -265,9 +275,10 @@ public:
 
 int main() {
     string user, pass, person, nameList, sentence;
-    int flag = 0 , i = 0, num;
+    int flag = 0 , i = 0, num , countForStudent = 0;
     ostad ob[sizeOfExam];
-    student ob1[sizeOfExam];
+    student *ob1[maximumExamForStudent];
+    saveNameAndExam ob3;
     while ( flag != 2 ) {
         cout << "ostad or student ?";
         cin >> person;
