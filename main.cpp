@@ -258,6 +258,25 @@ int main() {
                 flag++;
                 break;
             }
+            else {
+                if (sentence == "1" || sentence == "check my exam" || sentence == "check your exam") {
+                    int numberOfExam[sizeOfExam], count = 0;
+
+                    for (int j = 0; j < i; ++j) {
+                        if (ob[j].searchName(nameStudent) == nameStudent) {
+                            numberOfExam[count] = j;
+                            count++;
+                        }
+                    }
+                    cout << "Exam lists that are there for you : ";
+                    if (count == 0)
+                        cout << "not found any exam!" << endl;
+                    else {
+                        for (int j = 0; j < count; ++j) {
+                            cout << numberOfExam[j] + 1 << " ";
+                        }
+                    }
+                }
         
         }else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
