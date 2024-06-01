@@ -246,27 +246,19 @@ int main() {
                 }
             }
         } else if (person == "student" || person == "Student") {
+            string sentence;
             string nameStudent;
-            int numberOfExam[sizeOfExam], count = 0, n;
             cout << "what is your name?";
             cin >> nameStudent;
-            for (int j = 0; j < i; ++j) {
-                if (ob[j].searchName(nameStudent) == nameStudent) {
-                    numberOfExam[count] = j;
-                    count++;
-                }
+            cout<< "which one ? ( 1 : check your exam , 2 : show exam to answer it , 3 : examination protest , 4 : history of exams , 5 : see your score )" << endl
+                << "if you type ( end ), the app will be close." << endl;
+            cin.ignore();
+            getline(cin,sentence);
+            if (sentence == "end" || sentence == "End") {
+                flag++;
+                break;
             }
-            cout << "Exam lists that are there for you : ";
-            if (count == 0)
-                cout << "not found any exam!" << endl;
-            else {
-                for (int j = 0; j < count; ++j) {
-                    cout << numberOfExam[j] + 1 << " ";
-                }
-                cout << "which exam do you want to start ? ";
-                cin >> n;
-                ob[n - 1].displayExamForStudent(n - 1);
-            }
+        
         }else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
         }
