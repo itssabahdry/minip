@@ -174,7 +174,26 @@ public:
                 four +=4;
                 num++;
             }
-        
+         for (int i = 0; i < this->i; ++i) {
+                    cout << "Question " << num << " : " << endl;
+                    cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
+                    num++;
+                }
+                for (int i = 0; i < j; ++i) {
+                    cin >> answer;
+                    if (answer.empty()) {
+                        testAnswer[i] = 'f';
+                    } else
+                        testAnswer[i] = answer.at(0);
+                }
+                cin.ignore();
+                for (int k = 0; k < this->i; ++k) {
+                    getline(cin, answer);
+                    if (answer.empty()) {
+                        descriptiveAnswer[k] = "No answer";
+                    } else
+                        descriptiveAnswer[k] = answer;
+                }
         } else {
             cout << "Invalid list number!" << endl;
         }
