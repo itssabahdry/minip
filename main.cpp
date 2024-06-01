@@ -363,6 +363,25 @@ int main() {
                         countForStudent++;
                     }
                 }
+                if (sentence == "3" || sentence == "examination protest") {
+
+                        }
+                        if (sentence == "4" || sentence == "history of exams") {
+
+                        }
+                        if (sentence == "5" || sentence == "see your score" || sentence == "see my score") {
+                            string sentence1;
+                            while ( sentence1 != "end" ) {
+                                cout << "the list exam for you:" << "\t";
+                                ob3.search2(nameStudent);
+                                cout << endl;
+                                int number;
+                                cin >> number;
+                                ob1[ob3.search3( nameStudent , number - 1 )] = static_cast<student *>(&ob[ number - 1]);
+                                ob1[ ob3.search3( nameStudent , number - 1 ) ]->searchNumlistForScore( number - 1 );
+                            }
+                        }
+            }
         }else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
         }
