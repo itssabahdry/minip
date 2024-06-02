@@ -281,9 +281,6 @@ public:
                 }
              if(clock() - now >= ExamTime) {
                  cout << "time is up!" << endl;
-                 for(int i = 0 ; i < j ; i++) {
-                     if(testAnswer[i] == '\0') {
-                         testAnswer[i] = 'f';
                          break;
                      }
                  }
@@ -331,7 +328,7 @@ public:
                      << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl
                      << "student answer:  " << descriptiveAnswer[i] << endl
                      << "Enter score for this answer: ";
-                int score;
+                float score;
                 cin >> score;
                 while ( score > descriptivePoint[i]){
                     cout << "The entered score exceeds the maximum score for this question. please enter a valid score: ";
@@ -368,6 +365,24 @@ void changeScore(string name , float newScore){
                 pointForStudent[k].second = newScore;
         }
     }
+void displayExamHistory(string nameStudent) {
+    cout << "Exam history for " << nameStudent << ":" << endl;
+    bool hasExam = false;
+    for (int i = 0; i < pointForStudent.size(); ++i) {
+        if (pointForStudent[i].first == nameStudent) {
+            hasExam = true;
+            cout << "Exam " << numlistforAwnser[i] + 1 << ": " << examList[numlistforAwnser[i]];
+            if (pointForStudent[i].second >= 0) {
+                cout << " - Score: " << pointForStudent[i].second << endl;
+            } else {
+                cout << " - Not answered" << endl;
+            }
+        }
+    }
+    if (!hasExam) {
+        cout << "No exams found for " << nameStudent << endl;
+    }
+}
 };
 const string currentDateTime() {
     time_t     now = time(0);
@@ -445,8 +460,7 @@ int main() {
                     for (int i = 0; i < numLists; ++i) {
                         cin >> selectedExamLists[i];
                     }
-                    ostad teacher;
-                    teacher.calculateAverageScores(selectedExamLists);
+                    ob[0].calculateAverageScores(selectedExamLists);
                 }
                  if (sentence == "6" || sentence == "examination protest") {
                         cout << "protests:" << endl;
@@ -561,9 +575,9 @@ int main() {
                         ob3.addProtest(nameStudent, numlist, descript , timeProtest);
                     }
                 }
-                        if (sentence == "4" || sentence == "history of exams") {
-
-                        }
+                else if (sentence == "4" || sentence == "history of exams") {
+                    ob1[ob3.selectAnswerExam(nameStudent)]->displayExamHistory(nameStudent);
+                }
                         if (sentence == "5" || sentence == "see your score" || sentence == "see my score") {
                             string sentence1;
                             while ( sentence1 != "end" ) {
