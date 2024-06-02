@@ -365,7 +365,7 @@ public:
     }
  void searchNumlistForScore(int numlist){
         for (int k = 0; k < numlistforAwnser.size() ; ++k) {
-            if ( numlistforAwnser[k] == numlist )
+            if (numlistforAwnser[k] == numlist - 1)
                 cout << pointForStudent[k].second << endl;
         }
 }
