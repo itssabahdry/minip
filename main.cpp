@@ -3,6 +3,8 @@
 #include<vector>
 #include<utility>
 #include<ctime>
+#include<stdio.h>
+#include<time.h>
 using namespace std;
 
 const int sizeOfExam = 10;
@@ -15,6 +17,7 @@ private:
         string name;
         int examNum;
         string protestText;
+        string timeProtest;
         string response;
         bool resolved;
     };
@@ -23,12 +26,13 @@ private:
     vector <Protest> protests;
     int countExam = 0 ;
 public:
-void addProtest(string name, int examNum, string protestText) {
-        protests.push_back({name, examNum, protestText, "", false});
+void addProtest(string name, int examNum, string protestText , string timeProtest) {
+        protests.push_back({name, examNum, protestText, timeProtest, "", false});
     }
     void displayProtests() {
         for (const auto& protest : protests) {
-            cout << "Student: " << protest.name << ", Exam: " << protest.examNum << ", Protest: " << protest.protestText << endl;
+            cout << "Student: " << protest.name << ", Exam: " << protest.examNum << ", Protest: " << protest.protestText
+            << ", Date and Time: " << protest.timeProtest << endl;
             if (protest.resolved) {
                 cout << "Response: " << protest.response << endl;
             }
@@ -365,7 +369,15 @@ void changeScore(string name , float newScore){
         }
     }
 };
+const string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
 
+    return buf;
+}
 int main() {
     string user, pass, person, nameList, sentence;
     int flag = 0 , i = 0, num , countForStudent = 0;
@@ -544,7 +556,9 @@ int main() {
                         cin.ignore();
                         string descript;
                         getline(cin, descript);
-                        ob3.addProtest(nameStudent, numlist, descript);
+                        string timeProtest;
+                        timeProtest = currentDateTime();
+                        ob3.addProtest(nameStudent, numlist, descript , timeProtest);
                     }
                 }
                         if (sentence == "4" || sentence == "history of exams") {
