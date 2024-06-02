@@ -67,6 +67,7 @@ public:
  void examTime() {
         cout << "Enter the desired test time in seconds : " << endl;
         cin >> ExamTime;
+        ExamTime *= CLOCKS_PER_SEC;
     }
     void Exam() {
             while(totalPoint != 20) {
@@ -214,7 +215,6 @@ public:
             count = 0;
             num = 1;
             four = 0;
-            ExamTime *= CLOCKS_PER_SEC;
             clock_t now = clock();
          while (clock() - now < ExamTime) {
             for (int i = 0; testQuestion[i] != "\0"; ++i) {
@@ -238,6 +238,7 @@ public:
                  for(int i = 0 ; i < j ; i++) {
                      if(testAnswer[i] == '\0') {
                          testAnswer[i] = 'f';
+                         break;
                      }
                  }
              }
