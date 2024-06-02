@@ -261,8 +261,6 @@ public:
             count = 0;
             num = 1;
             four = 0;
-            clock_t now = clock();
-         while (clock() - now < ExamTime) {
             for (int i = 0; testQuestion[i] != "\0"; ++i) {
                 cout << "Question " << num  << " : " << endl;
                 int p = 0;
@@ -279,26 +277,28 @@ public:
                     cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
                     num++;
                 }
-             if(clock() - now >= ExamTime) {
-                 cout << "time is up!" << endl;
-                         break;
-                     }
-                 }
-                for (int i = 0; i < j; ++i) {
-                    cin >> answer;
-                    if (answer.empty()) {
-                        testAnswer[i] = 'f';
-                    } else
-                        testAnswer[i] = answer.at(0);
-                }
-                cin.ignore();
-                for (int k = 0; k < this->i; ++k) {
-                    getline(cin, answer);
-                    if (answer.empty()) {
-                        descriptiveAnswer[k] = "No answer";
-                    } else
-                        descriptiveAnswer[k] = answer;
-                }
+            clock_t now = clock();
+     while (clock() - now < ExamTime) {
+         for (int i = 0; i < j; ++i) {
+             cin >> answer;
+             if (answer.empty()) {
+                 testAnswer[i] = 'f';
+             } else
+                 testAnswer[i] = answer.at(0);
+         }
+         cin.ignore();
+         for (int k = 0; k < this->i; ++k) {
+             getline(cin, answer);
+             if (answer.empty()) {
+                 descriptiveAnswer[k] = "No answer";
+             } else
+                 descriptiveAnswer[k] = answer;
+         }
+         if(clock() - now >= ExamTime) {
+             cout << "time is up!" << endl;
+             break;
+         }
+     }
         } else {
             cout << "Invalid list number!" << endl;
         }
@@ -574,7 +574,13 @@ int main() {
                     }
                 }
                 else if (sentence == "4" || sentence == "history of exams") {
-                    ob1[countForStudent]->displayExamHistory(nameStudent);
+                    cout << "the list exam for you:" << "\t";
+                    ob3.search2(nameStudent);
+                    cout << endl;
+                    int number;
+                    cin >> number;
+                    int index = ob3.search3(nameStudent, number);
+                    ob1[index]->displayExamHistory(nameStudent);
                 }
                         if (sentence == "5" || sentence == "see your score" || sentence == "see my score") {
                             string sentence1;
