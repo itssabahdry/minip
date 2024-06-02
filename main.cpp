@@ -284,7 +284,6 @@ public:
                          break;
                      }
                  }
-             }
                 for (int i = 0; i < j; ++i) {
                     cin >> answer;
                     if (answer.empty()) {
@@ -300,7 +299,6 @@ public:
                     } else
                         descriptiveAnswer[k] = answer;
                 }
-             }
         } else {
             cout << "Invalid list number!" << endl;
         }
