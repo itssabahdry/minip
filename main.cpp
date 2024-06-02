@@ -109,6 +109,7 @@ protected:
     vector <pair< string , float >> pointForStudent;
     vector <int> numlistforAwnser;
     int ExamTime = 0;
+    bool share = true;
 public:
  void examTime() {
         cout << "Enter the desired test time in seconds : " << endl;
@@ -158,6 +159,13 @@ public:
                     j++;
                 }
             }
+        cout << "do you want to share it? " << endl;
+        string answer2;
+        cin >> answer2;
+        if(answer2 == "yes") {
+            share = true;
+        }else
+            share = false;
         }
     void newExam( string namelist){
         examList.push_back( namelist );
@@ -257,48 +265,52 @@ class student : public ostad {
 public:
  void displayExamForStudent(int listNumber) {
         if ( listNumber >= 0 && listNumber < sizeOfExam ) {
-            cout << "Exam list " << listNumber + 1 << " : " << examList [ listNumber ] << endl;
+            cout << "Exam list " << listNumber + 1 << " : " << examList[listNumber] << endl;
             count = 0;
             num = 1;
             four = 0;
+            if(share == true) {
             for (int i = 0; testQuestion[i] != "\0"; ++i) {
-                cout << "Question " << num  << " : " << endl;
+                cout << "Question " << num << " : " << endl;
                 int p = 0;
                 cout << testQuestion[i] << " ( " << testPoint[i] << " point )" << endl;
-                for (int k = four; k < four + 4 ; ++k) {
+                for (int k = four; k < four + 4; ++k) {
                     cout << abcd[p] << " ) " << fouranswer[k] << endl;
                     p++;
                 }
-                four +=4;
+                four += 4;
                 num++;
             }
-         for (int i = 0; i < this->i; ++i) {
-                    cout << "Question " << num << " : " << endl;
-                    cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
-                    num++;
-                }
+            for (int i = 0; i < this->i; ++i) {
+                cout << "Question " << num << " : " << endl;
+                cout << descriptiveQuestion[i] << " ( " << descriptivePoint[i] << " point )" << endl;
+                num++;
+            }
             clock_t now = clock();
-     while (clock() - now < ExamTime) {
-         for (int i = 0; i < j; ++i) {
-             cin >> answer;
-             if (answer.empty()) {
-                 testAnswer[i] = 'f';
-             } else
-                 testAnswer[i] = answer.at(0);
-         }
-         cin.ignore();
-         for (int k = 0; k < this->i; ++k) {
-             getline(cin, answer);
-             if (answer.empty()) {
-                 descriptiveAnswer[k] = "No answer";
-             } else
-                 descriptiveAnswer[k] = answer;
-         }
-         if(clock() - now >= ExamTime) {
-             cout << "time is up!" << endl;
-             break;
-         }
-     }
+            while (clock() - now < ExamTime) {
+                for (int i = 0; i < j; ++i) {
+                    cin >> answer;
+                    if (answer.empty()) {
+                        testAnswer[i] = 'f';
+                    } else
+                        testAnswer[i] = answer.at(0);
+                }
+                cin.ignore();
+                for (int k = 0; k < this->i; ++k) {
+                    getline(cin, answer);
+                    if (answer.empty()) {
+                        descriptiveAnswer[k] = "No answer";
+                    } else
+                        descriptiveAnswer[k] = answer;
+                }
+                if (clock() - now >= ExamTime) {
+                    cout << "time is up!" << endl;
+                    break;
+                }
+            }
+        } else {
+                cout << "you can not answer this exam." << endl;
+            }
         } else {
             cout << "Invalid list number!" << endl;
         }
@@ -370,9 +382,9 @@ void displayExamHistory(string nameStudent) {
         if (pointForStudent[i].first == nameStudent) {
             hasExam = true;
             cout << "Exam " << numlistforAwnser[i] + 1 << ": " << examList[numlistforAwnser[i]];
-            if (pointForStudent[i].second >= 0) {
+            if (pointForStudent[i].second >= 0 || share == true) {
                 cout << " - Score: " << pointForStudent[i].second << endl;
-            } else {
+            } else if(pointForStudent[i].second == '\0' || share == false) {
                 cout << " - Not answered" << endl;
             }
         }
