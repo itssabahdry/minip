@@ -576,7 +576,7 @@ int main() {
                     }
                 }
                 else if (sentence == "4" || sentence == "history of exams") {
-                    ob1[ob3.selectAnswerExam(nameStudent)]->displayExamHistory(nameStudent);
+                    ob1[countForStudent]->displayExamHistory(nameStudent);
                 }
                         if (sentence == "5" || sentence == "see your score" || sentence == "see my score") {
                             string sentence1;
