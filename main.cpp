@@ -358,25 +358,10 @@ public:
                 cout << pointForStudent[k].second << endl;
         }
 }
-void resolveProtest(string name, int examNum, string response) {
-        for (auto& protest : protests) {
-            if (protest.name == name && protest.examNum == examNum) {
-                protest.response = response;
-                protest.resolved = true;
-                cout << "Response to " << name << "'s protest for exam " << examNum << ": " << response << endl;
-            }
-        }
-    }
-
-    void displayStudentProtestResult(string name, int examNum) {
-        for (const auto& protest : protests) {
-            if (protest.name == name && protest.examNum == examNum) {
-                if (protest.resolved) {
-                    cout << "Response to your protest for exam " << examNum << ": " << protest.response << endl;
-                } else {
-                    cout << "Your protest for exam " << examNum << " is still being reviewed." << endl;
-                }
-            }
+void changeScore(string name , float newScore){
+        for (int k = 0; k < pointForStudent.size(); ++k) {
+            if ( name == pointForStudent[k].first )
+                pointForStudent[k].second = newScore;
         }
     }
 };
@@ -546,7 +531,6 @@ int main() {
                             count++;
                         }
                     }
-
                     cout << "Exam lists that are there for you : ";
                     if (count == 0)
                         cout << "not found any exam!" << endl;
