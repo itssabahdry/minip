@@ -8,11 +8,32 @@ using namespace std;
 const int sizeOfExam = 10;
 const int maximumExamForStudent = 400;
 const int maximumtestQuestion = 30 , maximumDescriptiveQuestion = 30;
+class student;
 class saveNameAndExam{
 private:
+     struct Protest {
+        string name;
+        int examNum;
+        string protestText;
+        string response;
+        bool resolved;
+    };
     vector<pair< string , int >> forCheckAnswer;
     vector <int> numExam;
+    vector <Protest> protests;
+    int countExam = 0 ;
 public:
+void addProtest(string name, int examNum, string protestText) {
+        protests.push_back({name, examNum, protestText, "", false});
+    }
+    void displayProtests() {
+        for (const auto& protest : protests) {
+            cout << "Student: " << protest.name << ", Exam: " << protest.examNum << ", Protest: " << protest.protestText << endl;
+            if (protest.resolved) {
+                cout << "Response: " << protest.response << endl;
+            }
+        }
+    }
     void setNameAndExam( string name , int listnumber , int num){
         forCheckAnswer.push_back(make_pair(name , listnumber));
         numExam.push_back(num);
@@ -450,8 +471,30 @@ int main() {
                     }
                 }
                 if (sentence == "3" || sentence == "examination protest") {
-
+                    int numberOfExam[sizeOfExam], count = 0;
+                    for (int j = 0; j < i; ++j) {
+                        if (ob[j].searchName(nameStudent) == nameStudent) {
+                            numberOfExam[count] = j;
+                            count++;
                         }
+                    }
+
+                    cout << "Exam lists that are there for you : ";
+                    if (count == 0)
+                        cout << "not found any exam!" << endl;
+                    else {
+                        for (int j = 0; j < count; ++j) {
+                            cout << numberOfExam[j] + 1 << " ";
+                        }
+                        cout << "which exam you want to protest? :  ";
+                        int numlist;
+                        cin >> numlist;
+                        cin.ignore();
+                        string descript;
+                        getline(cin, descript);
+                        ob3.addProtest(nameStudent, numlist, descript);
+                    }
+                }
                         if (sentence == "4" || sentence == "history of exams") {
 
                         }
