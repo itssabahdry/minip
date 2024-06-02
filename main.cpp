@@ -574,8 +574,18 @@ int main() {
                                 cout << endl;
                                 int number;
                                 cin >> number;
-                                ob1[ob3.search3( nameStudent , number - 1 )] = static_cast<student *>(&ob[ number - 1]);
-                                ob1[ ob3.search3( nameStudent , number - 1 ) ]->searchNumlistForScore( number - 1 );
+                                int index = ob3.search3(nameStudent, number);
+                            if (index < 0 || index >= countForStudent) {
+                                cout << "Invalid exam number or no exam found!" << endl;
+                            } else {
+                                student *studentobj = ob1[index];
+                                if (studentobj != nullptr) {
+                                    studentobj->searchNumlistForScore(number);
+                                } else
+                                    cout << "student object not found for the given index!" << endl;
+                            }
+                            cout << "Enter 'end' to finish or any key to continue: ";
+                            cin >> sentence1;
                             }
                         }
                  if (sentence == "6" || sentence == "result protest") {
