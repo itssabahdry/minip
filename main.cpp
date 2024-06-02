@@ -34,6 +34,27 @@ void addProtest(string name, int examNum, string protestText) {
             }
         }
     }
+void resolveProtest(string name, int examNum, string response) {
+        for (auto& protest : protests) {
+            if (protest.name == name && protest.examNum == examNum) {
+                protest.response = response;
+                protest.resolved = true;
+                cout << "Response to " << name << "'s protest for exam " << examNum << ": " << response << endl;
+            }
+        }
+    }
+
+    void displayStudentProtestResult(string name, int examNum) {
+        for (const auto& protest : protests) {
+            if (protest.name == name && protest.examNum == examNum) {
+                if (protest.resolved) {
+                    cout << "Response to your protest for exam " << examNum << ": " << protest.response << endl;
+                } else {
+                    cout << "Your protest for exam " << examNum << " is still being reviewed." << endl;
+                }
+            }
+        }
+    }
     void setNameAndExam( string name , int listnumber , int num){
         forCheckAnswer.push_back(make_pair(name , listnumber));
         numExam.push_back(num);
@@ -337,6 +358,27 @@ public:
                 cout << pointForStudent[k].second << endl;
         }
 }
+void resolveProtest(string name, int examNum, string response) {
+        for (auto& protest : protests) {
+            if (protest.name == name && protest.examNum == examNum) {
+                protest.response = response;
+                protest.resolved = true;
+                cout << "Response to " << name << "'s protest for exam " << examNum << ": " << response << endl;
+            }
+        }
+    }
+
+    void displayStudentProtestResult(string name, int examNum) {
+        for (const auto& protest : protests) {
+            if (protest.name == name && protest.examNum == examNum) {
+                if (protest.resolved) {
+                    cout << "Response to your protest for exam " << examNum << ": " << protest.response << endl;
+                } else {
+                    cout << "Your protest for exam " << examNum << " is still being reviewed." << endl;
+                }
+            }
+        }
+    }
 };
 
 int main() {
@@ -345,7 +387,10 @@ int main() {
     ostad ob[sizeOfExam];
     student *ob1[maximumExamForStudent];
     saveNameAndExam ob3;
-    while ( flag != 2 ) {
+     vector <pair<string , int>> examinationProtest;
+    vector <pair<string , string>> answerOstad;
+    vector <string> description ;
+    while ( flag != 10 ) {
         cout << "ostad or student ?";
         cin >> person;
         cout << "enter your ID : ";
@@ -354,7 +399,7 @@ int main() {
         cin >> pass;
         if (person == "ostad" && user == "Lotfi" && pass == "1234") {
             while (i <= sizeOfExam) {
-                cout<< "which one ? ( 1 : create new list , 2 : display exam , 3 : add student , 4 : check the answer )"
+                cout<< "which one ? ( 1 : create new list , 2 : display exam , 3 : add student , 4 : check the answer  , 5 : see the max average point of students ,  6 : examination protest)"
                 << endl << "the maximum of exam list is '" << sizeOfExam << "' "
                 << "and your number of your exam list is '" << i << "' ." << endl
                 << "if you type ( end ), the app will be close." << endl;
@@ -406,7 +451,30 @@ int main() {
                     ostad teacher;
                     teacher.calculateAverageScores(selectedExamLists);
                 }
-                if (sentence == "end" || sentence == "End") {
+                 if (sentence == "6" || sentence == "examination protest") {
+                        cout << "protests:" << endl;
+                        ob3.displayProtests();
+                        cout << "Enter student name to resolve protest: ";
+                        string studentName;
+                        cin >> studentName;
+                        cout << "Enter exam number: ";
+                        int examNum;
+                        cin >> examNum;
+                        cout << "Enter response: ";
+                        string response;
+                        cin.ignore();
+                        getline(cin, response);
+                        ob3.resolveProtest(studentName, examNum, response);
+                        cout << "Do you want to change Score? (yes or no) : ";
+                        string ans;
+                        cin >> ans;
+                        if (ans == "yes" || ans == "Yes"){
+                            float newp;
+                            cin >> newp;
+                            int index = ob3.search3(studentName, examNum );
+                            ob1[index]->changeScore( studentName , newp );
+                        }
+                    }else if (sentence == "end" || sentence == "End") {
                     flag++;
                     break;
                 }
@@ -419,7 +487,7 @@ int main() {
             cin >> nameStudent;
             cout << "enter your password : ";
             cin >> studentPassword;
-            cout<< "which one ? ( 1 : check your exam , 2 : show exam to answer it , 3 : examination protest , 4 : history of exams , 5 : see your score )" << endl
+            cout<< "which one ? ( 1 : check your exam , 2 : show exam to answer it , 3 : examination protest , 4 : history of exams , 5 : see your score , 6 : result protest)" << endl
                 << "if you type ( end ), the app will be close." << endl;
             cin.ignore();
             getline(cin,sentence);
@@ -510,6 +578,12 @@ int main() {
                                 ob1[ ob3.search3( nameStudent , number - 1 ) ]->searchNumlistForScore( number - 1 );
                             }
                         }
+                 if (sentence == "6" || sentence == "result protest") {
+                        int examNum;
+                        cout << "Enter exam number: ";
+                        cin >> examNum;
+                        ob3.displayStudentProtestResult(nameStudent, examNum);
+                    }
             }
         }else
             cout << "Login error." << endl << "One of the parts name , user or pass Wrong!";
