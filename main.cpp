@@ -202,7 +202,7 @@ public:
         int numberOfStudent;
         cout << "how many student do you want to add ?" << endl;
         cin >> numberOfStudent;
-        cout << "the list of student who can take the exam: ";
+        cout << "the list of student who can take the exam: " << endl;
         for (int i = 0; i < numberOfStudent ; ++i) {
             string name;
             cin >> name;
@@ -287,24 +287,38 @@ public:
                 num++;
             }
             clock_t now = clock();
-            while (clock() - now < ExamTime) {
+            int answerdQuestion = 0;
+            int totalNumberOfQuestion = i + j;
+            while (clock() - now < ExamTime && answerdQuestion <= totalNumberOfQuestion) {
                 for (int i = 0; i < j; ++i) {
-                    cin >> answer;
-                    if (answer.empty()) {
-                        testAnswer[i] = 'f';
-                    } else
-                        testAnswer[i] = answer.at(0);
+                    if (clock() - now >= ExamTime) {
+                        cout << "time is up!" << endl;
+                        break;
+                    } else {
+                        cin >> answer;
+                        answerdQuestion++;
+                        if (answer.empty()) {
+                            testAnswer[i] = 'f';
+                        } else
+                            testAnswer[i] = answer.at(0);
+                    }
                 }
                 cin.ignore();
                 for (int k = 0; k < this->i; ++k) {
-                    getline(cin, answer);
-                    if (answer.empty()) {
-                        descriptiveAnswer[k] = "No answer";
-                    } else
-                        descriptiveAnswer[k] = answer;
+                    if (clock() - now >= ExamTime) {
+                        cout << "time is up!" << endl;
+                        break;
+                    } else {
+                        getline(cin, answer);
+                        answerdQuestion++;
+                        if (answer.empty()) {
+                            descriptiveAnswer[k] = "No answer";
+                        } else
+                            descriptiveAnswer[k] = answer;
+                    }
                 }
-                if (clock() - now >= ExamTime) {
-                    cout << "time is up!" << endl;
+                if(answerdQuestion == totalNumberOfQuestion) {
+                    cout << "you answered all the questions. " << endl;
                     break;
                 }
             }
